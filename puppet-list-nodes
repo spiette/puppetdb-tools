@@ -2,8 +2,20 @@
 
 import urllib2
 import json
+from optparse import OptionParser
 
-url = 'http://localhost:8080/v3/nodes'
+parser = OptionParser()
+
+parser.add_option("-2", "--v2", action="store_true", dest="v2", default=False)
+(options, args) = parser.parse_args()
+
+if (options.v2):
+    version = "v2"
+else:
+    version = "v3"
+
+url = 'http://localhost:8080/%s/nodes' % version
+
 
 r = urllib2.Request(url)
 r.add_header('Accept', 'application/json')
